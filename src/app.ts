@@ -5,6 +5,7 @@ import cors from "cors";
 import logger from "@config/logger";
 
 import SystemRoutes from "routes/system";
+import routes from "routes";
 
 const app: Application = express();
 
@@ -18,5 +19,6 @@ const morganStream = {
 app.use(morgan("combined", { stream: morganStream }));
 
 app.use("/system", SystemRoutes);
+app.use("/api", routes);
 
 export default app;
