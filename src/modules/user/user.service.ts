@@ -66,18 +66,17 @@ export async function getUserById(userId: number) {
     logger.info(
       `Successfully fetched borrow history for user with ID: ${userId}`,
     );
+
     return {
       id: user.id,
       name: user.name,
       books: {
         past: past.map((borrow) => ({
-          name: borrow.book.name,
+          book: borrow.book,
           userScore: borrow.rating ?? 0,
-          author: borrow.book.author,
         })),
         present: present.map((borrow) => ({
-          name: borrow.book.name,
-          author: borrow.book.author,
+          book: borrow.book,
         })),
       },
     };

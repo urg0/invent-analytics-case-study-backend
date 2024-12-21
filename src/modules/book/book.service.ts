@@ -23,6 +23,7 @@ export async function getAllBooks() {
 export async function getBookDetailsById(bookId: number) {
   try {
     logger.info(`Querying details for book with ID: ${bookId}`);
+
     const book = await prisma.book.findUnique({
       where: { id: bookId },
       include: {
@@ -48,12 +49,23 @@ export async function getBookDetailsById(bookId: number) {
         : null;
 
     logger.info(`Successfully fetched book details for ID: ${bookId}`);
+
     return {
       id: book.id,
       name: book.name,
       author: book.author,
       publicationYear: book.publicationYear,
       averageRating,
+      borrows: book.borrows.map((borrow) => ({
+        id: borrow.id,
+        user: {
+          id: borrow.user.id,
+          name: borrow.user.name,
+        },
+        borrowedAt: borrow.borrowedAt,
+        returnedAt: borrow.returnedAt,
+        rating: borrow.rating,
+      })),
     };
   } catch (error) {
     logger.error(`Error fetching details for book with ID: ${bookId}`, error);
