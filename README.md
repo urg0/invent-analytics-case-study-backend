@@ -21,19 +21,14 @@
    yarn install
    ```
 
-3. **Database Setup (Choose ONE option)**
+3. **Database Setup**
 
-   **Option A: Using Docker (Recommended)**
+   **: Using Docker **
 
    ```bash
    # Start PostgreSQL container
-   docker run --name postgres -e POSTGRES_PASSWORD=password -p 5432:5432 -d postgres
+   docker-compose up -d
    ```
-
-   **Option B: Using Local PostgreSQL**
-
-   - Ensure PostgreSQL is installed and running
-   - Create a new database named `invent_analytics_db`
 
 4. **Environment Setup**
 
@@ -50,14 +45,13 @@
    # Generate Prisma client
    yarn prisma generate
 
-   # Run migrations
-   yarn prisma migrate deploy
-
-   # Seed the database with initial data
-   yarn prisma db seed
    ```
 
 6. **Start the server**
+
+### ⚠️ Note
+
+Please make sure the that you add the .env file i sent to the project.
 
    ```bash
    # Development mode with hot reload
@@ -138,7 +132,7 @@ src/
 - Express.js with TypeScript
 - Prisma ORM
 - PostgreSQL
-- Docker (optional but recommended)
+- Docker 
 - Winston for logging
 
 ### Need Help?
