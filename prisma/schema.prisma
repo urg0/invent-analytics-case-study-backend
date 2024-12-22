@@ -8,8 +8,12 @@ datasource db {
 }
 
 model User {
-  id      Int             @id @default(autoincrement())
-  name    String
+  id        Int       @id @default(autoincrement())
+  name      String
+  email     String?
+  birthDate DateTime?
+  address   String?
+
   borrows BorrowHistory[]
 }
 
@@ -26,9 +30,14 @@ model Book {
   id              Int     @id @default(autoincrement())
   name            String
   publicationYear Int
+  pageCount       Int?
+  language        String  @default("English")
+  isBestSeller    Boolean @default(false)
+  description     String?
   averageRating   Float?
-  authorId        Int?
-  author          Author? @relation(fields: [authorId], references: [id])
+
+  authorId Int?
+  author   Author? @relation(fields: [authorId], references: [id])
 
   borrows BorrowHistory[]
 }

@@ -10,6 +10,7 @@ export async function getAllUsers() {
       select: {
         id: true,
         name: true,
+        email: true,
       },
     });
     logger.info(`Query returned ${users.length} users.`);
@@ -25,7 +26,6 @@ export async function getUserById(userId: number) {
     logger.info(`Querying user with ID: ${userId}`);
     const user = await prisma.user.findUnique({
       where: { id: userId },
-      select: { id: true, name: true },
     });
 
     if (!user) {
@@ -70,6 +70,9 @@ export async function getUserById(userId: number) {
     return {
       id: user.id,
       name: user.name,
+      email: user.email,
+      birthDate: user.birthDate,
+      address: user.address,
       books: {
         past: past.map((borrow) => ({
           book: borrow.book,

@@ -6,12 +6,17 @@ const prisma = new PrismaClient();
 export async function getAllBooks() {
   try {
     logger.info("Querying all books from the database...");
+
     const books = await prisma.book.findMany({
       select: {
         id: true,
         name: true,
+        author: true,
+        publicationYear: true,
+        averageRating: true,
       },
     });
+
     logger.info(`Query returned ${books.length} books.`);
     return books;
   } catch (error) {
@@ -54,6 +59,10 @@ export async function getBookDetailsById(bookId: number) {
       id: book.id,
       name: book.name,
       author: book.author,
+      description: book.description,
+      isBestSeller: book.isBestSeller,
+      language: book.language,
+      pageCount: book.pageCount,
       publicationYear: book.publicationYear,
       averageRating,
       borrows: book.borrows.map((borrow) => ({
